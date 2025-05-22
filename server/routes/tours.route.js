@@ -1,14 +1,18 @@
 const express = require("express");
 
+// Local importing
+const {
+  createTour,
+  listTours,
+  getTourById,
+  updateTour,
+  deleteTour,
+} = require("../controllers/tour.controller");
+
 const router = express.Router();
 
-router.route("/").get((req, res) => {
-  return res.status(200).json({
-    status: "success",
-    data: {
-      msg: "Welcome from tours",
-    },
-  });
-});
+router.route("/").post(createTour).get(listTours);
+
+router.route("/:id").get(getTourById).patch(updateTour).delete(deleteTour);
 
 module.exports = router;
