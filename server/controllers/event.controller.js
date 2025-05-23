@@ -1,22 +1,22 @@
-const tourService = require("../services/tour.service");
+const eventService = require("../services/event.service");
 
-const createTour = async (req, res) => {
+const createEvent = async (req, res) => {
   try {
-    const tourData = req.body;
+    const eventData = req.body;
 
-    if (!tourData.name || !tourData.description) {
+    if (!eventData.name || !eventData.description) {
       return res.status(400).json({
         status: "fail",
         message: "Name and description are required fields.",
       });
     }
 
-    const newTour = await tourService.createTour(tourData);
+    const newEvent = await eventService.createEvent(eventData);
 
     res.status(201).json({
       status: "success",
       data: {
-        tour: newTour,
+        event: newEvent,
       },
     });
   } catch (error) {
@@ -29,15 +29,15 @@ const createTour = async (req, res) => {
   }
 };
 
-const listTours = async (req, res) => {
+const listEvents = async (req, res) => {
   try {
-    const tours = await tourService.listTours();
+    const events = await eventService.listEvents();
 
     res.status(200).json({
       status: "success",
-      results: tours.length,
+      results: events.length,
       data: {
-        tours,
+        events,
       },
     });
   } catch (error) {
@@ -49,22 +49,22 @@ const listTours = async (req, res) => {
   }
 };
 
-const getTourById = async (req, res) => {
+const getEventById = async (req, res) => {
   try {
     const { id } = req.params;
-    const tour = await tourService.readOneTour(id);
+    const event = await eventService.readOneEvent(id);
 
-    if (!tour) {
+    if (!event) {
       return res.status(404).json({
         status: "fail",
-        message: "Tour not found.",
+        message: "event not found.",
       });
     }
 
     res.status(200).json({
       status: "success",
       data: {
-        tour,
+        event,
       },
     });
   } catch (error) {
@@ -79,7 +79,7 @@ const getTourById = async (req, res) => {
   }
 };
 
-const updateTour = async (req, res) => {
+const updateEvent = async (req, res) => {
   try {
     const { id } = req.params;
     const dataToUpdate = req.body;
@@ -91,9 +91,9 @@ const updateTour = async (req, res) => {
       });
     }
 
-    const updatedTour = await tourService.updateTour(id, dataToUpdate);
+    const updatedEvent = await eventService.updateEvent(id, dataToUpdate);
 
-    if (!updatedTour) {
+    if (!updatedEvent) {
       return res.status(404).json({
         status: "fail",
         message: "Tour not found or no changes made.",
@@ -103,7 +103,7 @@ const updateTour = async (req, res) => {
     res.status(200).json({
       status: "success",
       data: {
-        tour: updatedTour,
+        tour: updatedEvent,
       },
     });
   } catch (error) {
@@ -119,12 +119,12 @@ const updateTour = async (req, res) => {
   }
 };
 
-const deleteTour = async (req, res) => {
+const deleteEvent = async (req, res) => {
   try {
     const { id } = req.params;
-    const deletedTour = await tourService.deleteTour(id);
+    const deletedEvent = await eventService.deleteEvent(id);
 
-    if (!deletedTour) {
+    if (!deletedEvent) {
       return res.status(404).json({
         status: "fail",
         message: "Tour not found.",
@@ -133,7 +133,7 @@ const deleteTour = async (req, res) => {
 
     res.status(204).json({
       status: "success",
-      message: deletedTour,
+      message: deletedEvent,
     });
   } catch (error) {
     console.error(
@@ -148,9 +148,9 @@ const deleteTour = async (req, res) => {
 };
 
 module.exports = {
-  createTour,
-  listTours,
-  getTourById,
-  updateTour,
-  deleteTour,
+  createEvent,
+  listEvents,
+  getEventById,
+  updateEvent,
+  deleteEvent,
 };

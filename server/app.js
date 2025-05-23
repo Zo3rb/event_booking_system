@@ -1,7 +1,7 @@
 const express = require("express");
 
 // Local Importing
-const { healthCheck, toursRouter, usersRouter } = require("./routes");
+const { healthCheck, eventsRouter, usersRouter } = require("./routes");
 
 // Creating an Instance of Express
 const app = express();
@@ -11,7 +11,7 @@ app.use(express.json());
 
 // App Routes
 app.use("/health", healthCheck);
-app.use("/api/v1/tours", toursRouter);
+app.use("/api/v1/events", eventsRouter);
 app.use("/api/v1/users", usersRouter);
 
 // Exporting Our App

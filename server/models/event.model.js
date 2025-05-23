@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const tourSchema = mongoose.Schema(
+const eventSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -19,6 +19,6 @@ const tourSchema = mongoose.Schema(
   }
 );
 
-const TourModel = mongoose.model("Tour", tourSchema);
+const EventModel = mongoose.model("Tour", eventSchema);
 
-module.exports = TourModel;
+module.exports = EventModel;

@@ -1,39 +1,39 @@
-const TourModel = require("../models/tour.model");
+const EventModel = require("../models/event.model");
 
-class TourService {
-  async createTour(tourData) {
+class EventService {
+  async createEvent(eventData) {
     try {
-      const newTour = await TourModel.create(tourData);
+      const newEvent = await EventModel.create(eventData);
 
-      return newTour;
+      return newEvent;
     } catch (error) {
       console.error("Error creating tour in service:", error.message);
       throw error;
     }
   }
 
-  async listTours() {
+  async listEvents() {
     try {
-      const tours = await TourModel.find({});
+      const events = await EventModel.find({});
 
-      return tours;
+      return events;
     } catch (error) {
       console.error("Error listing tours in service:", error.message);
       throw error;
     }
   }
 
-  async readOneTour(id) {
+  async readOneEvent(id) {
     try {
-      const tour = await TourModel.findById(id);
+      const event = await EventModel.findById(id);
 
-      if (!tour) {
+      if (!event) {
         const error = new Error("Tour not found");
         error.status = 404;
         throw error;
       }
 
-      return tour;
+      return event;
     } catch (error) {
       console.error(
         `Error reading tour with ID ${id} in service:`,
@@ -43,20 +43,24 @@ class TourService {
     }
   }
 
-  async updateTour(id, dataToUpdate) {
+  async updateEvent(id, dataToUpdate) {
     try {
-      const updatedTour = await TourModel.findByIdAndUpdate(id, dataToUpdate, {
-        new: true,
-        runValidators: true,
-      });
+      const updatedEvent = await EventModel.findByIdAndUpdate(
+        id,
+        dataToUpdate,
+        {
+          new: true,
+          runValidators: true,
+        }
+      );
 
-      if (!updatedTour) {
+      if (!updatedEvent) {
         const error = new Error("Tour not found for update");
         error.status = 404;
         throw error;
       }
 
-      return updatedTour;
+      return updatedEvent;
     } catch (error) {
       console.error(
         `Error updating tour with ID ${id} in service:`,
@@ -66,9 +70,9 @@ class TourService {
     }
   }
 
-  async deleteTour(id) {
+  async deleteEvent(id) {
     try {
-      const result = await TourModel.findByIdAndDelete(id);
+      const result = await EventModel.findByIdAndDelete(id);
 
       if (!result) {
         const error = new Error("Tour not found for deletion");
@@ -87,4 +91,4 @@ class TourService {
   }
 }
 
-module.exports = new TourService();
+module.exports = new EventService();
